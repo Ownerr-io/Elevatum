@@ -4,7 +4,7 @@ import { GlassCard } from "@/components/GlassCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { FiBookOpen, FiActivity, FiAward, FiFileText, FiTarget, FiDollarSign, FiMessageSquare, FiLayers, FiBriefcase } from "react-icons/fi";
+import { FiBookOpen, FiActivity, FiAward, FiFileText, FiLayout, FiTarget, FiDollarSign, FiMessageSquare, FiLayers, FiBriefcase } from "react-icons/fi";
 import { TextReveal } from "@/components/TextReveal";
 import { motion } from "framer-motion";
 
