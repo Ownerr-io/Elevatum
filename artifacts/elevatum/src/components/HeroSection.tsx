@@ -1,115 +1,313 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { TextReveal } from "./TextReveal";
-import { GlassCard } from "./GlassCard";
-import { Button } from "@/components/ui/button";
-import { AnimatedCounter } from "./AnimatedCounter";
+import { ArrowUpRight, X, Menu } from "lucide-react";
+
+const ease = [0.22, 1, 0.36, 1] as const;
+
+const fadeDown = {
+  hidden: { opacity: 0, y: -20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.1, duration: 0.5, ease },
+  }),
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 32 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.12, duration: 0.6, ease },
+  }),
+};
+
+const stats = [
+  { value: "+200", label: "RAISED BY\nSPRINT FOUNDERS" },
+  { value: "+50", label: "FOUNDER\nSTRATEGY SESSIONS" },
+  { value: "+30", label: "DAYS TO\nINVESTOR MOMENTUM" },
+];
+
+const navLinks = ["About", "Offers", "Results", "Course", "Contact"];
+const headingWords = ["Raise.", "Capital.", "Confidently."];
 
 export function HeroSection() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
   return (
-    <section className="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden">
-      {/* Background gradients */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] mix-blend-screen opacity-50 animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[150px] mix-blend-screen opacity-30" />
+    <section
+      className="relative min-h-screen flex flex-col overflow-hidden"
+      style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+    >
+      {/* Video background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ zIndex: 0 }}
+      >
+        <source
+          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260517_222138_3e3205be-3364-417b-a64a-bfe087acbec4.mp4"
+          type="video/mp4"
+        />
+      </video>
+
+      {/* Overlay */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.65) 100%)",
+          zIndex: 1,
+        }}
+      />
+
+      {/* Nav */}
+      <nav
+        className="relative flex items-center justify-between px-5 sm:px-8 md:px-12 pt-5 md:pt-6"
+        style={{ zIndex: 10 }}
+      >
+        {/* Logo */}
+        <motion.a
+          href="/"
+          className="flex items-center gap-2"
+          custom={0}
+          variants={fadeDown}
+          initial="hidden"
+          animate="visible"
+          data-testid="link-logo"
+        >
+          <div
+            className="w-8 h-8 rounded-full flex items-center justify-center"
+            style={{ border: "2px solid hsl(42 85% 58%)" }}
+          >
+            <div
+              className="w-2.5 h-2.5 rounded-full"
+              style={{ background: "hsl(42 85% 58%)" }}
+            />
+          </div>
+          <span
+            className="text-sm font-bold tracking-widest uppercase text-white hidden sm:block"
+          >
+            ELEVATUM
+          </span>
+        </motion.a>
+
+        {/* Desktop nav links */}
+        <div className="hidden md:flex items-center gap-10">
+          {navLinks.map((link, i) => (
+            <motion.a
+              key={link}
+              href={`#${link.toLowerCase()}`}
+              className="text-sm font-semibold tracking-widest uppercase text-white/80 hover:text-white transition-colors"
+              custom={i + 1}
+              variants={fadeDown}
+              initial="hidden"
+              animate="visible"
+              data-testid={`link-nav-${link.toLowerCase()}`}
+            >
+              {link}
+            </motion.a>
+          ))}
+        </div>
+
+        {/* Hamburger */}
+        <motion.button
+          onClick={() => setMenuOpen(true)}
+          className="w-9 h-9 rounded-full bg-black flex flex-col items-center justify-center gap-1"
+          custom={5}
+          variants={fadeDown}
+          initial="hidden"
+          animate="visible"
+          data-testid="button-menu-open"
+          aria-label="Open menu"
+        >
+          <span className="w-4 h-0.5 bg-white" />
+          <span className="w-4 h-0.5 bg-white" />
+          <span className="w-4 h-0.5 bg-white" />
+        </motion.button>
+      </nav>
+
+      {/* Stats row */}
+      <div
+        className="relative flex-1 flex items-center justify-end px-5 sm:px-8 md:px-12 py-8 md:py-0"
+        style={{ zIndex: 10 }}
+      >
+        <div className="flex items-center gap-5 sm:gap-8 md:gap-10">
+          {stats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              className="text-right"
+              custom={i + 2}
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              data-testid={`stat-${i}`}
+            >
+              <div
+                className="font-semibold text-black leading-none"
+                style={{ fontSize: "clamp(1.5rem, 5vw, 3.5rem)" }}
+              >
+                <span
+                  className="font-semibold"
+                  style={{ fontSize: "0.5em", color: "hsl(42 85% 58%)" }}
+                >
+                  +
+                </span>
+                {stat.value.replace("+", "")}
+              </div>
+              <div
+                className="text-[10px] sm:text-xs md:text-sm font-semibold tracking-widest uppercase text-black whitespace-pre-line leading-tight mt-1"
+              >
+                {stat.label}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
 
-      <div className="container mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
-        <div className="max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-8">
-            <span className="w-2 h-2 rounded-full bg-primary" />
-            <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              Confidential. Founder-First. Results-Driven.
-            </span>
-          </div>
-
-          <h1 className="text-5xl md:text-7xl font-bold leading-[1.1] mb-6">
-            <TextReveal text="Fundraising" />
-            <div className="flex">
-              <TextReveal text="Advisory" className="font-serif italic text-primary" />
-              <span className="ml-4"><TextReveal text="for" /></span>
-            </div>
-            <TextReveal text="Founders" />
-          </h1>
-
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            className="text-lg md:text-xl text-muted-foreground mb-10 max-w-lg leading-relaxed"
+      {/* Bottom content */}
+      <div
+        className="relative px-5 sm:px-8 md:px-12 pb-8 md:pb-12 flex flex-col gap-6 md:gap-12"
+        style={{ zIndex: 10 }}
+      >
+        {/* Row A: tagline + CTA */}
+        <div className="flex items-center justify-between gap-4">
+          <motion.p
+            className="text-[10px] sm:text-xs md:text-sm font-semibold tracking-widest uppercase text-white leading-relaxed"
+            style={{ maxWidth: "130px" }}
+            custom={5}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
           >
-            We help founders raise capital with clarity & confidence. Institutional-grade strategy for the pre-seed to Series A journey.
+            Confidential. <br />Founder-First. <br />Results Driven.
           </motion.p>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            className="flex flex-wrap gap-4"
+          <motion.a
+            href="#contact"
+            className="flex items-center gap-1 font-semibold whitespace-nowrap tracking-widest uppercase"
+            style={{
+              color: "hsl(42 85% 58%)",
+              fontSize: "clamp(1rem, 2vw, 1.5rem)",
+            }}
+            custom={6}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            data-testid="link-cta-book"
           >
-            <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 h-14 px-8 text-base">
-              Explore Offers
-            </Button>
-            <Button size="lg" variant="outline" className="border-white/20 hover:bg-white/5 h-14 px-8 text-base">
-              See Results
-            </Button>
-          </motion.div>
+            Book a Call
+            <ArrowUpRight size={18} className="sm:hidden" />
+            <ArrowUpRight size={22} className="hidden sm:block" />
+          </motion.a>
         </div>
 
-        <div className="relative h-[600px] hidden lg:block">
+        {/* Row B: description + heading */}
+        <div className="flex items-end justify-between gap-3 sm:gap-4">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ delay: 0.4, duration: 1, type: "spring" }}
-            className="absolute top-10 right-20 z-20"
+            className="shrink-0 w-[120px] sm:w-[180px] md:w-[280px]"
+            custom={7}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
           >
-            <GlassCard className="p-6 w-64 shadow-2xl">
-              <p className="text-sm text-muted-foreground mb-2">Total Capital Raised</p>
-              <h3 className="text-4xl font-serif text-foreground mb-1">
-                <AnimatedCounter value={2.4} prefix="$" suffix="M" duration={2} />
-              </h3>
-              <p className="text-xs text-primary font-medium tracking-wide">Last 12 Months</p>
-            </GlassCard>
+            <p
+              className="text-[9px] sm:text-xs md:text-sm font-semibold tracking-widest uppercase text-white/80 text-left md:text-right leading-relaxed"
+            >
+              Institutional-grade advisory for founders ready to raise capital with clarity and confidence.
+            </p>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, x: 50 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{ delay: 0.6, duration: 1, type: "spring" }}
-            className="absolute top-1/2 left-0 z-10"
-          >
-            <GlassCard className="p-6 w-56 shadow-2xl backdrop-blur-xl bg-black/40">
-              <p className="text-sm text-muted-foreground mb-2">Founders Served</p>
-              <h3 className="text-3xl font-bold text-foreground mb-1">
-                <AnimatedCounter value={47} duration={2} />
-              </h3>
-              <div className="flex items-center gap-2 mt-2">
-                <div className="flex -space-x-2">
-                  {[1, 2, 3].map((i) => (
-                    <div key={i} className="w-6 h-6 rounded-full border border-background bg-muted" />
-                  ))}
-                </div>
-                <span className="text-xs text-muted-foreground">Pre-Seed to Series A</span>
+          {/* Slide-up heading */}
+          <div className="text-right">
+            {headingWords.map((word, i) => (
+              <div key={word} className="overflow-hidden">
+                <motion.div
+                  initial={{ y: "110%" }}
+                  animate={{ y: 0 }}
+                  transition={{
+                    delay: 0.4 + i * 0.14,
+                    duration: 0.7,
+                    ease,
+                  }}
+                >
+                  <span
+                    className="block font-semibold uppercase text-white text-right leading-[0.88]"
+                    style={{ fontSize: "clamp(2rem, 9vw, 9rem)" }}
+                  >
+                    {word}
+                  </span>
+                </motion.div>
               </div>
-            </GlassCard>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 50 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 1, type: "spring" }}
-            className="absolute bottom-20 right-10 z-30"
-          >
-            <GlassCard className="p-5 w-60 border-primary/30 shadow-2xl">
-              <div className="flex items-center gap-3 mb-2">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                <p className="text-sm font-medium text-foreground">Capital Sprint</p>
-              </div>
-              <h3 className="text-xl font-bold text-foreground mb-1">30 Days</h3>
-              <p className="text-xs text-muted-foreground">To Investor Momentum</p>
-            </GlassCard>
-          </motion.div>
+            ))}
+          </div>
         </div>
       </div>
+
+      {/* Mobile menu overlay */}
+      {menuOpen && (
+        <div
+          className="fixed inset-0 z-50 bg-white flex flex-col px-5 pt-5 pb-8"
+          style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+        >
+          <div className="flex items-center justify-between">
+            <div
+              className="w-8 h-8 rounded-full flex items-center justify-center"
+              style={{ border: "2px solid hsl(42 85% 58%)" }}
+            >
+              <div
+                className="w-2.5 h-2.5 rounded-full"
+                style={{ background: "hsl(42 85% 58%)" }}
+              />
+            </div>
+            <button
+              onClick={() => setMenuOpen(false)}
+              className="w-9 h-9 rounded-full bg-black flex items-center justify-center"
+              data-testid="button-menu-close"
+              aria-label="Close menu"
+            >
+              <X size={16} color="white" />
+            </button>
+          </div>
+
+          <div className="flex flex-col gap-8 mt-16">
+            {navLinks.map((link) => (
+              <a
+                key={link}
+                href={`#${link.toLowerCase()}`}
+                onClick={() => setMenuOpen(false)}
+                className="text-3xl font-semibold tracking-widest uppercase text-black hover:opacity-60 transition-opacity"
+                data-testid={`link-mobile-${link.toLowerCase()}`}
+              >
+                {link}
+              </a>
+            ))}
+          </div>
+
+          <div className="mt-auto">
+            <a
+              href="#contact"
+              onClick={() => setMenuOpen(false)}
+              className="flex items-center gap-2 text-xl font-semibold tracking-widest uppercase"
+              style={{ color: "hsl(42 85% 58%)" }}
+            >
+              Book a Call <ArrowUpRight size={20} />
+            </a>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
