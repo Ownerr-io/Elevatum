@@ -1,157 +1,177 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { GlassCard } from "./GlassCard";
+import { motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { FiBookOpen, FiActivity, FiAward, FiFileText, FiLayout, FiTarget, FiDollarSign, FiMessageSquare, FiLayers, FiBriefcase } from "react-icons/fi";
-
-const pillars = [
-  { icon: FiBookOpen, title: "Learn", desc: "Understand the psychological frameworks investors use to deploy capital." },
-  { icon: FiActivity, title: "Apply", desc: "Build institutional-grade materials and a targeted CRM live during the course." },
-  { icon: FiAward, title: "Succeed", desc: "Launch your fundraise with an undeniable narrative and strategic momentum." },
-];
+import { ArrowUpRight } from "lucide-react";
 
 const modules = [
-  { icon: FiFileText, title: "Investor Narrative", desc: "Structuring a compelling, inevitable story.", badge: "Module 1" },
-  { icon: FiLayout, title: "Pitch Deck Architecture", desc: "Building the visual asset that drives the meeting.", badge: "Module 2" },
-  { icon: FiDollarSign, title: "Valuation & Economics", desc: "Pricing your round without killing momentum.", badge: "Module 3" },
-  { icon: FiTarget, title: "Outreach Strategy", desc: "Cold and warm systems to book qualified meetings.", badge: "Module 4" },
-  { icon: FiMessageSquare, title: "The Pitch Meeting", desc: "Controlling the room and answering hard questions.", badge: "Module 5" },
-  { icon: FiLayers, title: "Follow-Up Systems", desc: "Running a tight process to drive urgency.", badge: "Module 6" },
-  { icon: FiBriefcase, title: "Term Sheets & Closing", desc: "Navigating diligence and signing the wire.", badge: "Bonus" },
+  { num: "01", title: "Investor Narrative", desc: "Structuring a compelling, inevitable story investors can't ignore." },
+  { num: "02", title: "Pitch Deck Architecture", desc: "Building the visual asset that drives the meeting — and the deal." },
+  { num: "03", title: "Valuation & Economics", desc: "Pricing your round without killing momentum or diluting vision." },
+  { num: "04", title: "Outreach Strategy", desc: "Cold and warm systems to book qualified meetings at scale." },
+  { num: "05", title: "The Pitch Meeting", desc: "Controlling the room and answering the hardest questions." },
+  { num: "06", title: "Follow-Up Systems", desc: "Running a tight post-meeting process to manufacture urgency." },
+  { num: "Bonus", title: "Term Sheets & Closing", desc: "Navigating diligence, negotiation, and getting the wire sent." },
 ];
 
 export function CourseSection() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="course" ref={ref} className="py-32 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(212,175,55,0.04)_0%,transparent_60%)] pointer-events-none" />
-
-      <div className="container mx-auto px-6 max-w-6xl">
-        {/* Header */}
-        <motion.div
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <div className="inline-block border border-primary/20 bg-primary/5 text-primary text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full mb-8">
-            Cohort 04 — Applications Open
-          </div>
-          <h2 className="text-5xl md:text-7xl font-serif italic mb-6 leading-tight">
-            Master the Art<br />of Fundraising
+    <section id="course" ref={ref} className="border-t border-white/[0.07]">
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="px-8 md:px-16 py-16 border-b border-white/[0.07] flex items-end justify-between gap-8 flex-wrap"
+      >
+        <div>
+          <span className="text-[10px] font-semibold tracking-[0.3em] uppercase text-primary block mb-5">
+            — Cohort 04 — Applications Open
+          </span>
+          <h2
+            className="font-semibold uppercase tracking-tight text-foreground leading-none"
+            style={{ fontSize: "clamp(2.5rem, 7vw, 7rem)" }}
+          >
+            Master the Art<br />of Fundraising.
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            A comprehensive 6-week program designed to give founders the knowledge, tools, and confidence to successfully raise institutional capital.
-          </p>
-        </motion.div>
-
-        {/* Pillars */}
-        <div className="grid md:grid-cols-3 gap-6 mb-24">
-          {pillars.map((pillar, i) => (
-            <motion.div
-              key={pillar.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.1 + 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <GlassCard className="p-8 text-center h-full" hoverEffect>
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
-                  <pillar.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-bold mb-3">{pillar.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{pillar.desc}</p>
-              </GlassCard>
-            </motion.div>
-          ))}
         </div>
+        <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
+          A 6-week program giving founders the knowledge, tools, and confidence to raise institutional capital. Limited to 20 founders per cohort.
+        </p>
+      </motion.div>
 
-        {/* Curriculum */}
+      {/* Pillars */}
+      <div className="grid md:grid-cols-3 border-b border-white/[0.07]">
+        {[
+          { num: "I", title: "Learn", desc: "Understand the psychological frameworks investors use to deploy capital." },
+          { num: "II", title: "Apply", desc: "Build institutional-grade materials and a targeted CRM live during the course." },
+          { num: "III", title: "Succeed", desc: "Launch your fundraise with an undeniable narrative and strategic momentum." },
+        ].map((p, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: i * 0.1 + 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className={`px-8 md:px-12 py-12 ${i < 2 ? "border-b md:border-b-0 md:border-r border-white/[0.07]" : ""}`}
+          >
+            <span
+              className="font-serif italic text-primary leading-none block mb-6"
+              style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
+            >
+              {p.num}
+            </span>
+            <h3 className="text-lg font-bold uppercase tracking-wide text-foreground mb-3">{p.title}</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Curriculum — list style */}
+      <div className="border-b border-white/[0.07]">
+        <div className="px-8 md:px-16 py-10 border-b border-white/[0.07]">
+          <h3 className="text-xs font-semibold tracking-[0.3em] uppercase text-muted-foreground">Curriculum</h3>
+        </div>
+        {modules.map((mod, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, x: -20 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ delay: i * 0.08 + 0.3, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="group grid md:grid-cols-[auto_1fr_1fr] gap-0 border-b border-white/[0.07] hover:bg-white/[0.02] transition-colors cursor-default last:border-b-0"
+          >
+            <div className="px-8 md:px-12 py-7 md:border-r border-white/[0.07] flex items-center min-w-[80px]">
+              <span className="text-xs font-semibold tracking-[0.2em] uppercase text-primary/60 group-hover:text-primary transition-colors">
+                {mod.num}
+              </span>
+            </div>
+            <div className="px-8 md:px-12 py-7 md:border-r border-white/[0.07] flex items-center">
+              <h4 className="text-sm font-bold uppercase tracking-wide text-foreground">{mod.title}</h4>
+            </div>
+            <div className="px-8 md:px-12 py-7 flex items-center justify-between gap-4">
+              <p className="text-sm text-muted-foreground leading-relaxed">{mod.desc}</p>
+              <ArrowUpRight size={14} className="text-primary/0 group-hover:text-primary/60 transition-all shrink-0" />
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Waitlist form */}
+      <div className="grid md:grid-cols-2">
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          className="mb-24"
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.5, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="px-8 md:px-16 py-16 md:border-r border-white/[0.07] border-b md:border-b-0 flex flex-col justify-between gap-12"
         >
-          <h3 className="text-3xl font-serif text-center mb-12">Curriculum</h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {modules.map((mod, i) => (
-              <motion.div
-                key={mod.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: i * 0.07 + 0.5, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <GlassCard className="p-7" hoverEffect>
-                  <div className="flex justify-between items-start mb-5">
-                    <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center">
-                      <mod.icon className="w-5 h-5 text-primary" />
-                    </div>
-                    <span className="text-xs font-bold text-muted-foreground bg-white/5 px-3 py-1 rounded-full">
-                      {mod.badge}
-                    </span>
-                  </div>
-                  <h4 className="text-base font-bold mb-2">{mod.title}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{mod.desc}</p>
-                </GlassCard>
-              </motion.div>
-            ))}
+          <div>
+            <h3
+              className="font-semibold uppercase tracking-tight text-foreground leading-none mb-6"
+              style={{ fontSize: "clamp(1.75rem, 4vw, 3.5rem)" }}
+            >
+              Join the Next Cohort.
+            </h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Next cohort: Q3 2025 — Limited to 20 founders. Applications reviewed on a rolling basis.
+            </p>
           </div>
+          <span className="text-[10px] font-semibold tracking-[0.3em] uppercase text-primary">
+            — 20 Founders Max Per Cohort
+          </span>
         </motion.div>
 
-        {/* Cohort Signup */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.6, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-xl mx-auto text-center"
+          transition={{ delay: 0.6, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="px-8 md:px-16 py-16"
         >
-          <h3 className="text-3xl font-serif mb-2">Join the Next Cohort</h3>
-          <p className="text-muted-foreground mb-8">Next cohort: Q3 2025 — Limited to 20 founders.</p>
-
-          <GlassCard className="p-8 text-left border-primary/20">
-            <form className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Name</label>
-                  <Input className="bg-white/5 border-white/10" placeholder="Jane Doe" data-testid="input-course-name" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Email</label>
-                  <Input className="bg-white/5 border-white/10" type="email" placeholder="jane@company.com" data-testid="input-course-email" />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Company</label>
-                <Input className="bg-white/5 border-white/10" placeholder="Acme Corp" data-testid="input-course-company" />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Current Stage</label>
-                <Select>
-                  <SelectTrigger className="bg-white/5 border-white/10" data-testid="select-course-stage">
-                    <SelectValue placeholder="Select Stage" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="pre-seed">Pre-Seed</SelectItem>
-                    <SelectItem value="seed">Seed</SelectItem>
-                    <SelectItem value="series-a">Series A</SelectItem>
-                    <SelectItem value="series-b">Series B+</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <Button
-                type="submit"
-                className="w-full mt-2 bg-primary text-primary-foreground hover:bg-primary/90 h-12 text-base font-bold tracking-wide"
-                data-testid="button-course-waitlist"
-              >
-                Join the Waitlist
-              </Button>
-            </form>
-          </GlassCard>
+          <form className="space-y-7">
+            <div className="space-y-1">
+              <label className="text-[10px] font-semibold tracking-[0.25em] uppercase text-muted-foreground">Name</label>
+              <Input
+                className="bg-transparent border-0 border-b border-white/20 rounded-none h-12 px-0 text-foreground placeholder:text-white/20 focus-visible:ring-0 focus-visible:border-primary transition-colors"
+                placeholder="Jane Doe"
+                data-testid="input-course-name"
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="text-[10px] font-semibold tracking-[0.25em] uppercase text-muted-foreground">Email</label>
+              <Input
+                type="email"
+                className="bg-transparent border-0 border-b border-white/20 rounded-none h-12 px-0 text-foreground placeholder:text-white/20 focus-visible:ring-0 focus-visible:border-primary transition-colors"
+                placeholder="jane@company.com"
+                data-testid="input-course-email"
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="text-[10px] font-semibold tracking-[0.25em] uppercase text-muted-foreground">Current Stage</label>
+              <Select>
+                <SelectTrigger
+                  className="bg-transparent border-0 border-b border-white/20 rounded-none h-12 px-0 text-foreground focus:ring-0 data-[placeholder]:text-white/20"
+                  data-testid="select-course-stage"
+                >
+                  <SelectValue placeholder="Select stage" />
+                </SelectTrigger>
+                <SelectContent className="bg-background border-white/10 text-foreground">
+                  <SelectItem value="pre-seed">Pre-Seed</SelectItem>
+                  <SelectItem value="seed">Seed</SelectItem>
+                  <SelectItem value="series-a">Series A</SelectItem>
+                  <SelectItem value="series-b">Series B+</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <Button
+              type="submit"
+              className="w-full bg-primary text-background hover:bg-primary/90 h-14 text-xs font-bold tracking-[0.3em] uppercase rounded-none mt-2"
+              data-testid="button-course-waitlist"
+            >
+              Join the Waitlist <ArrowUpRight size={16} className="ml-2" />
+            </Button>
+          </form>
         </motion.div>
       </div>
     </section>

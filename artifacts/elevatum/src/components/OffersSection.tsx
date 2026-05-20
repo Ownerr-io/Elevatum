@@ -1,91 +1,144 @@
-import { motion } from "framer-motion";
-import { GlassCard } from "./GlassCard";
-import { Button } from "@/components/ui/button";
-import { FiCheck } from "react-icons/fi";
-import { TextReveal } from "./TextReveal";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+
+const features = {
+  sprint: ["Investor Narrative", "Pitch Materials", "Outreach Systems", "Messaging Support", "Warm Intros"],
+  colead: ["Full Strategy", "Investor Targeting", "Meeting Generation", "Pitch Coaching", "CRM Systems", "Weekly Support"],
+};
 
 export function OffersSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
   return (
-    <section id="offers" className="py-32 relative">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.05)_0%,transparent_70%)]" />
-      
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 font-serif">
-            Two ways to work together.
+    <section id="offers" ref={ref} className="border-t border-white/[0.07]">
+      {/* Section header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="px-8 md:px-16 py-16 border-b border-white/[0.07] flex items-end justify-between gap-8 flex-wrap"
+      >
+        <div>
+          <span className="text-[10px] font-semibold tracking-[0.3em] uppercase text-primary block mb-5">— Offers</span>
+          <h2
+            className="font-semibold uppercase tracking-tight text-foreground leading-none"
+            style={{ fontSize: "clamp(2.5rem, 7vw, 7rem)" }}
+          >
+            Two Ways<br />to Work Together.
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Institutional frameworks tailored for your stage and goals.
+        </div>
+        <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
+          Institutional frameworks tailored for your stage and goals. One sprint. One partnership.
+        </p>
+      </motion.div>
+
+      {/* Offer A — Capital Sprint */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ delay: 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="border-b border-white/[0.07] grid md:grid-cols-[1fr_auto] gap-0"
+      >
+        <div className="px-8 md:px-16 py-14 md:border-r border-white/[0.07]">
+          <div className="flex items-start justify-between gap-4 mb-6 flex-wrap">
+            <div>
+              <span className="text-[10px] font-semibold tracking-[0.25em] uppercase text-primary block mb-3">01 — Most Popular</span>
+              <h3
+                className="font-semibold uppercase tracking-tight text-foreground"
+                style={{ fontSize: "clamp(1.75rem, 4vw, 3.5rem)" }}
+              >
+                Capital Sprint
+              </h3>
+              <p className="text-sm text-muted-foreground mt-2 tracking-wide">30 Days to Investor Momentum</p>
+            </div>
+            <div className="text-right">
+              <div
+                className="font-semibold text-foreground"
+                style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}
+              >
+                $2,500
+              </div>
+              <p className="text-xs text-muted-foreground tracking-widest uppercase mt-1">One-time</p>
+            </div>
+          </div>
+          <p className="text-base text-muted-foreground leading-relaxed max-w-xl">
+            Tactical fundraising sprint that gets you investor-ready and in meetings within 30 days. Built for founders who need momentum now.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {/* Capital Sprint */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+        <div className="px-8 md:px-16 py-14 flex flex-col justify-between gap-10 min-w-[280px]">
+          <ul className="space-y-4">
+            {features.sprint.map((f, i) => (
+              <li key={i} className="flex items-center gap-3 text-sm font-medium text-foreground/80 tracking-wide">
+                <span className="w-5 h-px bg-primary shrink-0" />
+                {f}
+              </li>
+            ))}
+          </ul>
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-1.5 text-sm font-bold tracking-[0.2em] uppercase text-primary hover:opacity-70 transition-opacity"
+            data-testid="link-offer-sprint"
           >
-            <GlassCard className="p-10 h-full flex flex-col relative border-white/10" hoverEffect>
-              <div className="absolute top-0 right-0 bg-primary/20 text-primary px-4 py-1 rounded-bl-xl text-xs font-bold tracking-wider uppercase border-b border-l border-primary/20">
-                Most Popular
-              </div>
-              <h3 className="text-2xl font-bold mb-2">Capital Sprint</h3>
-              <div className="text-3xl font-serif text-primary mb-4">$2,500</div>
-              <p className="text-lg font-medium text-foreground mb-4">30 Days to Investor Momentum</p>
-              <p className="text-muted-foreground mb-8">
-                Tactical fundraising sprint that gets you investor-ready and in meetings within 30 days.
-              </p>
-              
-              <ul className="space-y-4 mb-10 flex-1">
-                {["Investor Narrative", "Pitch Materials", "Outreach Systems", "Messaging Support", "Warm Intros"].map((feature, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <FiCheck className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                    <span className="text-muted-foreground">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <Button className="w-full h-12 text-base bg-primary text-primary-foreground hover:bg-primary/90">
-                Start Your Sprint
-              </Button>
-            </GlassCard>
-          </motion.div>
-
-          {/* Co-Lead */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            <GlassCard className="p-10 h-full flex flex-col relative border-primary/30 bg-black/40" hoverEffect>
-              <div className="absolute top-0 right-0 bg-foreground/10 text-foreground px-4 py-1 rounded-bl-xl text-xs font-bold tracking-wider uppercase border-b border-l border-white/10">
-                Premium
-              </div>
-              <h3 className="text-2xl font-bold mb-2">Co-Lead Fundraising</h3>
-              <div className="text-3xl font-serif text-foreground mb-4">Application Only</div>
-              <p className="text-lg font-medium text-foreground mb-4">Full-cycle fundraising partnership</p>
-              <p className="text-muted-foreground mb-8">
-                Deep advisory engagement for founders raising serious capital. Strategy through close.
-              </p>
-              
-              <ul className="space-y-4 mb-10 flex-1">
-                {["Full Strategy", "Investor Targeting", "Meeting Generation", "Pitch Coaching", "CRM Systems", "Weekly Support"].map((feature, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <FiCheck className="w-5 h-5 text-foreground mt-0.5 shrink-0" />
-                    <span className="text-muted-foreground">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <Button variant="outline" className="w-full h-12 text-base border-white/20 hover:bg-white/10">
-                Apply Now
-              </Button>
-            </GlassCard>
-          </motion.div>
+            Start Your Sprint <ArrowUpRight size={16} />
+          </a>
         </div>
-      </div>
+      </motion.div>
+
+      {/* Offer B — Co-Lead */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ delay: 0.25, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="grid md:grid-cols-[1fr_auto] gap-0"
+      >
+        <div className="px-8 md:px-16 py-14 md:border-r border-white/[0.07]">
+          <div className="flex items-start justify-between gap-4 mb-6 flex-wrap">
+            <div>
+              <span className="text-[10px] font-semibold tracking-[0.25em] uppercase text-primary block mb-3">02 — Premium</span>
+              <h3
+                className="font-semibold uppercase tracking-tight text-foreground"
+                style={{ fontSize: "clamp(1.75rem, 4vw, 3.5rem)" }}
+              >
+                Co-Lead Fundraising
+              </h3>
+              <p className="text-sm text-muted-foreground mt-2 tracking-wide">Full-cycle Fundraising Partnership</p>
+            </div>
+            <div className="text-right">
+              <div
+                className="font-semibold text-foreground"
+                style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}
+              >
+                Application
+              </div>
+              <p className="text-xs text-muted-foreground tracking-widest uppercase mt-1">Only</p>
+            </div>
+          </div>
+          <p className="text-base text-muted-foreground leading-relaxed max-w-xl">
+            Deep advisory engagement for founders raising serious capital. We work alongside you from strategy through close — investor selection, meeting generation, term sheet navigation.
+          </p>
+        </div>
+
+        <div className="px-8 md:px-16 py-14 flex flex-col justify-between gap-10 min-w-[280px]">
+          <ul className="space-y-4">
+            {features.colead.map((f, i) => (
+              <li key={i} className="flex items-center gap-3 text-sm font-medium text-foreground/80 tracking-wide">
+                <span className="w-5 h-px bg-primary shrink-0" />
+                {f}
+              </li>
+            ))}
+          </ul>
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-1.5 text-sm font-bold tracking-[0.2em] uppercase text-primary hover:opacity-70 transition-opacity"
+            data-testid="link-offer-colead"
+          >
+            Apply Now <ArrowUpRight size={16} />
+          </a>
+        </div>
+      </motion.div>
     </section>
   );
 }
