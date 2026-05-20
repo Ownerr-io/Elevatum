@@ -59,7 +59,7 @@ export function TestimonialsSection() {
                 "{t.quote}"
               </p>
             </div>
-            <div className="px-8 md:px-16 py-14 flex flex-col justify-end gap-1 min-w-[200px]">
+            <div className="px-8 md:px-16 py-8 md:py-14 flex flex-col justify-end gap-1 min-w-[200px] border-t md:border-t-0 border-white/[0.07]">
               <div className="text-sm font-bold tracking-widest uppercase text-foreground">{t.author}</div>
               <div className="text-xs tracking-widest uppercase text-primary">{t.role}</div>
             </div>

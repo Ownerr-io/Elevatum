@@ -45,7 +45,7 @@ export function HeroSection() {
 
   return (
     <section
-      className="relative min-h-screen flex flex-col overflow-hidden"
+      className="relative min-h-screen flex flex-col overflow-x-hidden"
       style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
     >
       {/* Video background */}
@@ -139,9 +139,9 @@ export function HeroSection() {
         </motion.button>
       </nav>
 
-      {/* Stats row */}
+      {/* Stats row — flex-1 pushes bottom content down on all sizes */}
       <div
-        className="relative flex-1 flex items-center justify-end px-5 sm:px-8 md:px-12 py-8 md:py-0"
+        className="relative flex-1 flex items-center justify-end px-5 sm:px-8 md:px-12 py-6 md:py-0"
         style={{ zIndex: 10 }}
       >
         <div className="flex items-center gap-5 sm:gap-8 md:gap-10">
@@ -157,7 +157,7 @@ export function HeroSection() {
             >
               <div
                 className="font-semibold text-black leading-none"
-                style={{ fontSize: "clamp(1.5rem, 5vw, 3.5rem)" }}
+                style={{ fontSize: "clamp(1.25rem, 4vw, 3.5rem)" }}
               >
                 <span
                   className="font-semibold"
@@ -167,9 +167,7 @@ export function HeroSection() {
                 </span>
                 {stat.value.replace("+", "")}
               </div>
-              <div
-                className="text-[10px] sm:text-xs md:text-sm font-semibold tracking-widest uppercase text-black whitespace-pre-line leading-tight mt-1"
-              >
+              <div className="text-[9px] sm:text-[10px] md:text-sm font-semibold tracking-widest uppercase text-black whitespace-pre-line leading-tight mt-1">
                 {stat.label}
               </div>
             </motion.div>
@@ -179,29 +177,25 @@ export function HeroSection() {
 
       {/* Bottom content */}
       <div
-        className="relative px-5 sm:px-8 md:px-12 pb-8 md:pb-12 flex flex-col gap-6 md:gap-12"
+        className="relative px-5 sm:px-8 md:px-12 pb-4 sm:pb-6 md:pb-12 flex flex-col gap-3 sm:gap-4 md:gap-10"
         style={{ zIndex: 10 }}
       >
-        {/* Row A: tagline + CTA */}
+        {/* Row A: tagline (left, hidden on mobile) + CTA (right) */}
         <div className="flex items-center justify-between gap-4">
           <motion.p
-            className="text-[10px] sm:text-xs md:text-sm font-semibold tracking-widest uppercase text-white leading-relaxed"
-            style={{ maxWidth: "130px" }}
+            className="hidden sm:block text-[10px] font-semibold tracking-[0.2em] uppercase text-white/50 leading-tight whitespace-nowrap"
             custom={5}
             variants={fadeUp}
             initial="hidden"
             animate="visible"
           >
-            Confidential. <br />Founder-First. <br />Results Driven.
+            Confidential &nbsp;·&nbsp; Founder-First &nbsp;·&nbsp; Results Driven
           </motion.p>
 
           <motion.a
             href="#contact"
-            className="flex items-center gap-1 font-semibold whitespace-nowrap tracking-widest uppercase"
-            style={{
-              color: "hsl(42 85% 58%)",
-              fontSize: "clamp(1rem, 2vw, 1.5rem)",
-            }}
+            className="flex items-center gap-1 font-semibold whitespace-nowrap tracking-widest uppercase shrink-0 text-xs sm:text-sm ml-auto"
+            style={{ color: "hsl(42 85% 58%)" }}
             custom={6}
             variants={fadeUp}
             initial="hidden"
@@ -209,50 +203,28 @@ export function HeroSection() {
             data-testid="link-cta-book"
           >
             Book a Call
-            <ArrowUpRight size={18} className="sm:hidden" />
-            <ArrowUpRight size={22} className="hidden sm:block" />
+            <ArrowUpRight size={14} />
           </motion.a>
         </div>
 
-        {/* Row B: description + heading */}
-        <div className="flex items-end justify-between gap-3 sm:gap-4">
-          <motion.div
-            className="shrink-0 w-[120px] sm:w-[180px] md:w-[280px]"
-            custom={7}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-          >
-            <p
-              className="text-[9px] sm:text-xs md:text-sm font-semibold tracking-widest uppercase text-white/80 text-left md:text-right leading-relaxed"
-            >
-              Institutional-grade advisory for founders ready to raise capital with clarity and confidence.
-            </p>
-          </motion.div>
-
-          {/* Slide-up heading */}
-          <div className="text-right">
-            {headingWords.map((word, i) => (
-              <div key={word} className="overflow-hidden">
-                <motion.div
-                  initial={{ y: "110%" }}
-                  animate={{ y: 0 }}
-                  transition={{
-                    delay: 0.4 + i * 0.14,
-                    duration: 0.7,
-                    ease,
-                  }}
+        {/* Row B: full-width heading */}
+        <div className="text-right">
+          {headingWords.map((word, i) => (
+            <div key={word} className="overflow-hidden">
+              <motion.div
+                initial={{ y: "110%" }}
+                animate={{ y: 0 }}
+                transition={{ delay: 0.4 + i * 0.14, duration: 0.7, ease }}
+              >
+                <span
+                  className="block font-semibold uppercase text-white leading-[0.88]"
+                  style={{ fontSize: "clamp(2.25rem, 5.5vw, 5.5rem)" }}
                 >
-                  <span
-                    className="block font-semibold uppercase text-white text-right leading-[0.88]"
-                    style={{ fontSize: "clamp(2rem, 9vw, 9rem)" }}
-                  >
-                    {word}
-                  </span>
-                </motion.div>
-              </div>
-            ))}
-          </div>
+                  {word}
+                </span>
+              </motion.div>
+            </div>
+          ))}
         </div>
       </div>
 

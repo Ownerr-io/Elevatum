@@ -68,7 +68,7 @@ export function OffersSection() {
           </p>
         </div>
 
-        <div className="px-8 md:px-16 py-14 flex flex-col justify-between gap-10 min-w-[280px]">
+        <div className="px-8 md:px-16 py-14 flex flex-col justify-between gap-10 md:min-w-[280px] border-t md:border-t-0 border-white/[0.07]">
           <ul className="space-y-4">
             {features.sprint.map((f, i) => (
               <li key={i} className="flex items-center gap-3 text-sm font-medium text-foreground/80 tracking-wide">
@@ -121,7 +121,7 @@ export function OffersSection() {
           </p>
         </div>
 
-        <div className="px-8 md:px-16 py-14 flex flex-col justify-between gap-10 min-w-[280px]">
+        <div className="px-8 md:px-16 py-14 flex flex-col justify-between gap-10 md:min-w-[280px] border-t md:border-t-0 border-white/[0.07]">
           <ul className="space-y-4">
             {features.colead.map((f, i) => (
               <li key={i} className="flex items-center gap-3 text-sm font-medium text-foreground/80 tracking-wide">

@@ -22,7 +22,7 @@ export function TextReveal({ text, className = "", element: Element = "div" }: T
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         damping: 12,
         stiffness: 100,
       },

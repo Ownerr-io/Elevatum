@@ -81,19 +81,32 @@ export function CourseSection() {
             initial={{ opacity: 0, x: -20 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: i * 0.08 + 0.3, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="group grid md:grid-cols-[auto_1fr_1fr] gap-0 border-b border-white/[0.07] hover:bg-white/[0.02] transition-colors cursor-default last:border-b-0"
+            className="group border-b border-white/[0.07] hover:bg-white/[0.02] transition-colors cursor-default last:border-b-0"
           >
-            <div className="px-8 md:px-12 py-7 md:border-r border-white/[0.07] flex items-center min-w-[80px]">
-              <span className="text-xs font-semibold tracking-[0.2em] uppercase text-primary/60 group-hover:text-primary transition-colors">
+            {/* Mobile layout */}
+            <div className="flex items-start gap-5 px-8 py-6 md:hidden">
+              <span className="text-xs font-semibold tracking-[0.2em] uppercase text-primary/60 shrink-0 mt-0.5 group-hover:text-primary transition-colors">
                 {mod.num}
               </span>
+              <div>
+                <h4 className="text-sm font-bold uppercase tracking-wide text-foreground mb-1">{mod.title}</h4>
+                <p className="text-xs text-muted-foreground leading-relaxed">{mod.desc}</p>
+              </div>
             </div>
-            <div className="px-8 md:px-12 py-7 md:border-r border-white/[0.07] flex items-center">
-              <h4 className="text-sm font-bold uppercase tracking-wide text-foreground">{mod.title}</h4>
-            </div>
-            <div className="px-8 md:px-12 py-7 flex items-center justify-between gap-4">
-              <p className="text-sm text-muted-foreground leading-relaxed">{mod.desc}</p>
-              <ArrowUpRight size={14} className="text-primary/0 group-hover:text-primary/60 transition-all shrink-0" />
+            {/* Desktop layout */}
+            <div className="hidden md:grid md:grid-cols-[auto_1fr_1fr]">
+              <div className="px-12 py-7 border-r border-white/[0.07] flex items-center min-w-[80px]">
+                <span className="text-xs font-semibold tracking-[0.2em] uppercase text-primary/60 group-hover:text-primary transition-colors">
+                  {mod.num}
+                </span>
+              </div>
+              <div className="px-12 py-7 border-r border-white/[0.07] flex items-center">
+                <h4 className="text-sm font-bold uppercase tracking-wide text-foreground">{mod.title}</h4>
+              </div>
+              <div className="px-12 py-7 flex items-center justify-between gap-4">
+                <p className="text-sm text-muted-foreground leading-relaxed">{mod.desc}</p>
+                <ArrowUpRight size={14} className="text-primary/0 group-hover:text-primary/60 transition-all shrink-0" />
+              </div>
             </div>
           </motion.div>
         ))}
