@@ -1,0 +1,303 @@
+Build a world-class premium fundraising advisory website for a single angel investor brand called “Elevatum”.
+
+Tech Stack:
+- Next.js 15 (App Router)
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- shadcn/ui
+- Lucide Icons
+- Responsive design
+- SEO optimized
+- Dark/light subtle premium aesthetic
+- Modern animations
+- Production-ready architecture
+
+Design Direction:
+This is NOT a startup agency website. This is a HIGH-END PERSONAL BRAND WEBSITE for a single angel investor / fundraising advisor.
+
+Visual inspiration:
+- a16z
+- Notion
+- Linear
+- Ramp
+- Stripe
+- Sequoia
+- Lux capital
+
+Design feel:
+- Extremely premium
+- Minimal but powerful
+- Sophisticated typography
+- Strong whitespace
+- High trust
+- Founder-focused
+- Modern venture capital aesthetic
+- Premium gradients
+- Subtle motion
+- Elegant glass effects
+- Dark premium sections
+- Clean investor-grade design
+
+Color palette:
+- Deep charcoal / black base
+- Warm white typography
+- Muted gold accents
+- Soft gradients
+- Premium grays
+- Minimal accent usage
+
+Typography:
+- Large editorial headings
+- Sharp clean sans serif
+- High contrast hierarchy
+- Luxury startup aesthetic
+
+Website Structure:
+
+1. HERO SECTION
+Headline:
+“Fundraising Advisory for Founders”
+
+Subheadline:
+“We help founders raise capital with clarity & confidence.”
+
+Premium CTA buttons:
+- Explore Offers
+- See Results
+
+Hero design should include:
+- Investor portrait placeholder / premium visual composition
+- Floating metrics cards
+- Animated subtle gradient background
+- Trust indicators
+- Motion effects
+
+Stats section:
+- 200+ Raised by Sprint Founders
+- 50+ Founder Strategy Sessions
+- 30 Days to Investor Momentum
+- 3+ Avg Meetings Booked in Sprint
+
+---
+
+2. ABOUT / PERSONAL INVESTOR SECTION
+This must feel personal and trust-building.
+
+Sections:
+- Investor philosophy
+- Why founders work with Elevatum
+- Personal positioning as strategic fundraising advisor
+- Elegant investor bio section
+- Quote block
+- Timeline or milestones
+
+Design:
+Editorial layout with premium card composition
+
+---
+
+3. CLIENT LOGOS / SOCIAL PROOF
+Elegant scrolling marquee
+Monochrome premium logo treatment
+
+---
+
+4. OFFERS SECTION
+
+Offer cards should be extremely premium.
+
+A. Capital Sprint
+- 30 Days to Investor Momentum
+- Tactical fundraising sprint
+- Price card ($2,500)
+- Premium CTA
+
+Include:
+- Investor narrative
+- Pitch materials
+- Outreach systems
+- Messaging support
+- Warm intros
+
+B. Co-Lead Fundraising
+- Premium advisory engagement
+- Application only
+
+Include:
+- Strategy
+- Investor targeting
+- Meeting generation
+- Coaching
+- CRM systems
+- Weekly support
+
+Cards should have:
+- Glassmorphism
+- Hover motion
+- Elegant gradients
+- Premium badges
+
+---
+
+5. RESULTS / CASE STUDIES SECTION
+
+Headline:
+“Real outcomes. Not promises.”
+
+Premium metric cards:
+- $25K angel check
+- 2 investor meetings in 1 week
+- $1M+ commitments
+- $45K presell → $425K raised
+
+Add animated counters.
+
+Make this feel institutional and highly trustworthy.
+
+---
+
+6. COURSE PAGE / SECTION
+
+Separate premium section for:
+
+Headline:
+“Master the Art of Fundraising”
+
+Subheadline:
+“A comprehensive program designed to give founders the knowledge, tools, and confidence to successfully raise capital.”
+
+Learning pillars:
+- Learn
+- Apply
+- Succeed
+
+Curriculum cards:
+- Investor narrative
+- Pitch deck
+- Term sheets
+- Valuation
+- Outreach
+- Follow-up
+- Round structuring
+
+Premium cohort signup form
+
+Optional:
+Waitlist badge
+Upcoming cohort card
+
+---
+
+7. PROCESS SECTION
+
+Timeline style:
+
+Step 1: Diagnose
+Step 2: Position
+Step 3: Outreach
+Step 4: Meetings
+Step 5: Close
+
+Animated horizontal journey
+
+---
+
+8. TESTIMONIALS SECTION
+Large premium quote cards
+Founder success stories
+Minimal and elegant
+
+---
+
+9. FAQ SECTION
+Modern accordion
+Smooth animations
+
+Questions:
+- Who do you work with?
+- What does the process look like?
+- Do you guarantee funding?
+- How is Elevatum different?
+
+---
+
+10. CONTACT SECTION
+
+Premium founder intake form
+
+Fields:
+- Name
+- Email
+- Company
+- Raise stage
+- Message
+
+Design:
+Investor-grade elegant contact card
+
+Include:
+“Let’s start a conversation.”
+
+---
+
+11. FOOTER
+Minimal premium footer
+
+Links:
+- About
+- Offers
+- Results
+- Course
+- Contact
+
+Include social icons
+
+---
+
+UX REQUIREMENTS:
+- Sticky transparent navbar
+- Scroll-triggered animations
+- Parallax subtle effects
+- Smooth section transitions
+- Premium hover interactions
+- Mobile perfect
+- Fast loading
+- Accessible
+- Keyboard navigable
+
+COMPONENT ARCHITECTURE:
+Create reusable components:
+
+/components
+- HeroSection
+- StatsStrip
+- AboutInvestor
+- ClientMarquee
+- OfferCards
+- ResultsMetrics
+- CourseSection
+- ProcessTimeline
+- Testimonials
+- FAQAccordion
+- ContactForm
+- Footer
+
+Pages:
+- /
+- /course
+
+Use App Router structure.
+
+CODE QUALITY:
+- Clean component separation
+- Type-safe props
+- Reusable animations
+- No messy inline logic
+- Production-level code
+
+IMPORTANT:
+Avoid generic agency templates.
+This must feel like a premium VC / angel investor personal brand website.
+Think “single high-value advisor” not “marketing agency”.
+Make it visually stunning and modern.
