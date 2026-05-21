@@ -1,39 +1,31 @@
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
 import { AnimatedCounter } from "./AnimatedCounter";
+import { layoutQuad, sectionRule, sectionShell } from "@/components/editorial/SectionChrome";
+import { ScrollReveal } from "@/components/editorial/ScrollReveal";
 
 const stats = [
-  { value: 200, suffix: "+", label: "RAISED BY\nSPRINT FOUNDERS" },
-  { value: 50, suffix: "+", label: "FOUNDER\nSTRATEGY SESSIONS" },
-  { value: 30, suffix: "", label: "DAYS TO\nINVESTOR MOMENTUM" },
-  { value: 3, suffix: "+", label: "AVG MEETINGS\nBOOKED PER SPRINT" },
+  { value: 200, suffix: "+", label: "Sprint founders", sub: "Capital raised" },
+  { value: 50, suffix: "+", label: "Strategy sessions", sub: "Founder hours" },
+  { value: 30, suffix: "", label: "Day sprint", sub: "Investor momentum" },
+  { value: 3, suffix: "+", label: "Meetings", sub: "Avg per sprint" },
 ];
 
+/** Below the fold only, not in the hero. */
 export function StatsStrip() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
   return (
-    <section ref={ref} className="border-t border-white/[0.07]">
-      <div className="grid grid-cols-2 md:grid-cols-4">
+    <section className={sectionRule()}>
+      <div className={`${sectionShell()} ${layoutQuad()} py-16 md:py-20`}>
         {stats.map((stat, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 24 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className={`px-8 md:px-12 py-12 md:py-16 ${i < 3 ? "border-r border-white/[0.07]" : ""} ${i >= 2 ? "border-t md:border-t-0 border-white/[0.07]" : ""}`}
-          >
-            <div
-              className="font-semibold text-foreground leading-none mb-3 tracking-tight"
-              style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
-            >
-              <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+          <ScrollReveal key={i} delay={i * 0.08}>
+            <div className="glass-stat">
+              <div className="stat-giant">
+                <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+              </div>
+              <div>
+                <p className="text-sm font-medium leading-snug text-foreground">{stat.label}</p>
+                <p className="mt-1 text-xs text-muted-foreground">{stat.sub}</p>
+              </div>
             </div>
-            <p className="text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-muted-foreground whitespace-pre-line leading-tight">
-              {stat.label}
-            </p>
-          </motion.div>
+          </ScrollReveal>
         ))}
       </div>
     </section>

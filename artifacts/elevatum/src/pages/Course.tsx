@@ -15,7 +15,7 @@ export default function Course() {
       
       {/* Hero */}
       <section className="pt-32 pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(212,175,55,0.05)_0%,transparent_50%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,hsl(var(--glow)/0.2)_0%,transparent_50%)] pointer-events-none" />
         <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl pt-16">
           <div className="inline-block border border-primary/20 bg-primary/5 text-primary text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full mb-8">
             Cohort 04 Applications Open
@@ -49,7 +49,7 @@ export default function Course() {
       </section>
 
       {/* Curriculum */}
-      <section className="py-32 bg-black/20 border-y border-white/5">
+      <section className="py-32 section-surface border-y border-border/40">
         <div className="container mx-auto px-6 max-w-6xl">
           <h2 className="text-4xl font-serif text-center mb-16">Curriculum</h2>
           

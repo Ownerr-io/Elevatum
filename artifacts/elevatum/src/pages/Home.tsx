@@ -1,5 +1,5 @@
 import { HeroSection } from "@/components/HeroSection";
-import { StatsStrip } from "@/components/StatsStrip";
+import { FloatingBottomNav } from "@/components/FloatingBottomNav";
 import { AboutSection } from "@/components/AboutSection";
 import { ClientMarquee } from "@/components/ClientMarquee";
 import { OffersSection } from "@/components/OffersSection";
@@ -13,9 +13,10 @@ import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background text-foreground selection:bg-primary/30">
+    <main className="page-grain relative min-h-screen w-full bg-background text-foreground">
       <HeroSection />
-      <StatsStrip />
+      <FloatingBottomNav />
+      <div className="relative z-0 bg-background pb-28 md:pb-32">
       <AboutSection />
       <ClientMarquee />
       <OffersSection />
@@ -26,6 +27,7 @@ export default function Home() {
       <FAQSection />
       <ContactSection />
       <Footer />
+      </div>
     </main>
   );
 }

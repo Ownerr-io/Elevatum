@@ -1,5 +1,3 @@
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -22,6 +20,22 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { ArrowUpRight } from "lucide-react";
+import {
+  GlassPane,
+  SectionIntro,
+  SectionTag,
+  layoutSplit,
+  sectionPadY,
+  sectionRule,
+  sectionShell,
+} from "@/components/editorial/SectionChrome";
+import {
+  editorialInputClass,
+  editorialSelectTriggerClass,
+  editorialTextareaClass,
+} from "@/components/editorial/EditorialForm";
+import { ScrollReveal } from "@/components/editorial/ScrollReveal";
+import { openInquiryMailto } from "@/lib/inquiry-mailto";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -32,184 +46,195 @@ const formSchema = z.object({
 });
 
 export function ContactSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { name: "", email: "", company: "", stage: "", message: "" },
   });
 
-  function onSubmit(_values: z.infer<typeof formSchema>) {
-    // Handle submission
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    openInquiryMailto(`Elevatum contact — ${values.company}`, {
+      Name: values.name,
+      Email: values.email,
+      Company: values.company,
+      Stage: values.stage,
+      Message: values.message,
+    });
   }
 
   return (
-    <section id="contact" ref={ref} className="border-t border-white/[0.07]">
-      <div className="grid md:grid-cols-2">
-        {/* Left — editorial heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="px-8 md:px-16 py-20 md:border-r border-white/[0.07] border-b md:border-b-0 flex flex-col justify-between gap-16"
-        >
-          <span className="text-[10px] font-semibold tracking-[0.3em] uppercase text-primary">
-            — Contact
-          </span>
+    <section id="contact" className={sectionRule()}>
+      <div className={`${sectionShell()} ${sectionPadY()} pb-10`}>
+        <ScrollReveal>
+          <SectionIntro
+            index="07"
+            tag="Contact"
+            title={
+              <>
+                Start a
+                <br />
+                conversation.
+              </>
+            }
+          />
+        </ScrollReveal>
+      </div>
 
-          <div>
-            <h2
-              className="font-semibold uppercase tracking-tight text-foreground leading-none mb-8"
-              style={{ fontSize: "clamp(2.5rem, 6vw, 6rem)" }}
-            >
-              Let's Start<br />a Conversation.
-            </h2>
-            <p className="text-base text-muted-foreground leading-relaxed mb-6">
-              Apply to work with Elevatum. Serious enquiries only. Responses within 48 hours.
-            </p>
-            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-primary">
-              — Currently accepting 3 new engagements per quarter.
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            <div className="text-xs font-semibold tracking-[0.25em] uppercase text-muted-foreground">
-              Reach us directly
+      <div className={`${sectionShell()} ${layoutSplit()} pb-24 md:pb-32`}>
+        <ScrollReveal>
+          <GlassPane
+            accent
+            glow
+            className="flex min-h-full h-full flex-col justify-between gap-10 p-8 md:p-12"
+          >
+            <div className="space-y-5">
+              <SectionTag>3 slots per quarter</SectionTag>
+              <p className="copy-two-lines text-muted-foreground">
+                Serious enquiries only. We respond
+                <br />
+                within 48 hours.
+              </p>
             </div>
-            <a
-              href="mailto:hello@elevatum.co"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold tracking-wide text-foreground hover:text-primary transition-colors"
-            >
-              hello@elevatum.co <ArrowUpRight size={14} />
-            </a>
-          </div>
-        </motion.div>
+            <div>
+              <p className="mb-2 text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+                Email
+              </p>
+              <a href="mailto:hello@elevatum.co" className="editorial-link text-base">
+                hello@elevatum.co <ArrowUpRight size={16} />
+              </a>
+            </div>
+          </GlassPane>
+        </ScrollReveal>
 
-        {/* Right — form */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.15, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="px-8 md:px-16 py-20"
-        >
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-xs tracking-widest uppercase text-muted-foreground">Full Name</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Jane Doe"
-                          className="bg-transparent border-0 border-b border-white/20 rounded-none h-12 px-0 text-foreground placeholder:text-white/20 focus-visible:ring-0 focus-visible:border-primary transition-colors"
-                          data-testid="input-contact-name"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="text-xs" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-xs tracking-widest uppercase text-muted-foreground">Email</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="jane@company.com"
-                          className="bg-transparent border-0 border-b border-white/20 rounded-none h-12 px-0 text-foreground placeholder:text-white/20 focus-visible:ring-0 focus-visible:border-primary transition-colors"
-                          data-testid="input-contact-email"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="text-xs" />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <FormField
-                  control={form.control}
-                  name="company"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-xs tracking-widest uppercase text-muted-foreground">Company</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Acme Corp"
-                          className="bg-transparent border-0 border-b border-white/20 rounded-none h-12 px-0 text-foreground placeholder:text-white/20 focus-visible:ring-0 focus-visible:border-primary transition-colors"
-                          data-testid="input-contact-company"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="text-xs" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="stage"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-xs tracking-widest uppercase text-muted-foreground">Raise Stage</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+        <ScrollReveal delay={0.1}>
+          <GlassPane className="h-full p-8 md:p-10">
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem className="gap-2">
+                        <FormLabel className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                          Name
+                        </FormLabel>
                         <FormControl>
-                          <SelectTrigger
-                            className="bg-transparent border-0 border-b border-white/20 rounded-none h-12 px-0 text-foreground focus:ring-0 data-[placeholder]:text-white/20"
-                            data-testid="select-contact-stage"
-                          >
-                            <SelectValue placeholder="Select stage" />
-                          </SelectTrigger>
+                          <Input
+                            placeholder="Jane Doe"
+                            className={editorialInputClass}
+                            data-testid="input-contact-name"
+                            {...field}
+                          />
                         </FormControl>
-                        <SelectContent className="bg-background border-white/10 text-foreground">
-                          <SelectItem value="pre-seed">Pre-Seed</SelectItem>
-                          <SelectItem value="seed">Seed</SelectItem>
-                          <SelectItem value="series-a">Series A</SelectItem>
-                          <SelectItem value="series-b">Series B+</SelectItem>
-                        </SelectContent>
-                      </Select>
+                        <FormMessage className="text-xs" />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem className="gap-2">
+                        <FormLabel className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                          Email
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="jane@company.com"
+                            className={editorialInputClass}
+                            data-testid="input-contact-email"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-xs" />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <FormField
+                    control={form.control}
+                    name="company"
+                    render={({ field }) => (
+                      <FormItem className="gap-2">
+                        <FormLabel className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                          Company
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Acme Corp"
+                            className={editorialInputClass}
+                            data-testid="input-contact-company"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-xs" />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="stage"
+                    render={({ field }) => (
+                      <FormItem className="gap-2">
+                        <FormLabel className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                          Stage
+                        </FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger
+                              className={editorialSelectTriggerClass}
+                              data-testid="select-contact-stage"
+                            >
+                              <SelectValue placeholder="Select stage" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="pre-seed">Pre-Seed</SelectItem>
+                            <SelectItem value="seed">Seed</SelectItem>
+                            <SelectItem value="series-a">Series A</SelectItem>
+                            <SelectItem value="series-b">Series B+</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage className="text-xs" />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem className="gap-2">
+                      <FormLabel className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                        Situation
+                      </FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Raising $2M to scale GTM..."
+                          className={editorialTextareaClass}
+                          data-testid="textarea-contact-message"
+                          {...field}
+                        />
+                      </FormControl>
                       <FormMessage className="text-xs" />
                     </FormItem>
                   )}
                 />
-              </div>
 
-              <FormField
-                control={form.control}
-                name="message"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-xs tracking-widest uppercase text-muted-foreground">Your Situation</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="We are raising $2M to scale our GTM motion..."
-                        className="bg-transparent border-0 border-b border-white/20 rounded-none px-0 text-foreground placeholder:text-white/20 focus-visible:ring-0 focus-visible:border-primary transition-colors resize-none min-h-[100px]"
-                        data-testid="textarea-contact-message"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage className="text-xs" />
-                  </FormItem>
-                )}
-              />
-
-              <Button
-                type="submit"
-                className="w-full bg-primary text-background hover:bg-primary/90 h-14 text-xs font-bold tracking-[0.3em] uppercase rounded-none mt-4"
-                data-testid="button-contact-submit"
-              >
-                Send Message <ArrowUpRight size={16} className="ml-2" />
-              </Button>
-            </form>
-          </Form>
-        </motion.div>
+                <Button
+                  type="submit"
+                  className="h-12 w-full rounded-md bg-primary text-xs font-semibold uppercase tracking-[0.18em] text-primary-foreground shadow-[0_12px_40px_-16px_hsl(var(--primary)/0.55)] hover:bg-primary/90"
+                  data-testid="button-contact-submit"
+                >
+                  Send message <ArrowUpRight size={16} className="ml-2" />
+                </Button>
+              </form>
+            </Form>
+          </GlassPane>
+        </ScrollReveal>
       </div>
     </section>
   );

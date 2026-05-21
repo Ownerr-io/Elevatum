@@ -1,4 +1,10 @@
-import { FiTwitter, FiLinkedin } from "react-icons/fi";
+import { FiTwitter, FiLinkedin, FiArrowUpRight } from "react-icons/fi";
+import {
+  SectionTag,
+  sectionRule,
+  sectionShell,
+} from "@/components/editorial/SectionChrome";
+import { ScrollReveal } from "@/components/editorial/ScrollReveal";
 
 const links = [
   { label: "About", href: "#about" },
@@ -10,64 +16,77 @@ const links = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/[0.07]">
-      <div className="grid md:grid-cols-3 border-b border-white/[0.07]">
-        {/* Logo */}
-        <div className="px-8 md:px-16 py-12 md:border-r border-white/[0.07] border-b md:border-b-0 flex items-center">
-          <a href="/" className="flex items-center gap-2 group">
-            <div
-              className="w-7 h-7 rounded-full flex items-center justify-center shrink-0"
-              style={{ border: "2px solid hsl(42 85% 58%)" }}
-            >
-              <div className="w-2 h-2 rounded-full" style={{ background: "hsl(42 85% 58%)" }} />
-            </div>
-            <span className="text-sm font-bold tracking-[0.25em] uppercase text-foreground group-hover:text-primary transition-colors">
-              ELEVATUM
-            </span>
-          </a>
-        </div>
+    <footer className={`${sectionRule()} footer-surface`}>
+      <div className={`${sectionShell()} py-16 md:py-20 lg:py-24`}>
+        <div className="grid gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)_minmax(0,0.85fr)] lg:items-start lg:gap-16">
+          <ScrollReveal className="flex flex-col gap-8">
+            <a href="/" className="group inline-flex w-fit">
+              <img
+                src="/Elevatum_Logo.png"
+                alt="Elevatum"
+                className="h-20 w-auto max-w-[min(90vw,18rem)] object-contain object-left transition-transform duration-500 group-hover:scale-[1.02] sm:h-24 md:h-[6.5rem]"
+              />
+            </a>
+            <p className="copy-two-lines max-w-[32ch] text-muted-foreground">
+              Fundraising advisory for founders
+              <br />
+              raising with editorial precision.
+            </p>
+            <a href="mailto:hello@elevatum.co" className="editorial-link w-fit text-sm">
+              hello@elevatum.co <FiArrowUpRight size={14} />
+            </a>
+          </ScrollReveal>
 
-        {/* Nav */}
-        <div className="px-8 md:px-16 py-12 md:border-r border-white/[0.07] border-b md:border-b-0">
-          <nav className="flex flex-wrap gap-x-8 gap-y-3">
-            {links.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-xs font-semibold tracking-[0.2em] uppercase text-muted-foreground hover:text-primary transition-colors"
-              >
-                {link.label}
+          <ScrollReveal delay={0.08} className="lg:pt-2">
+            <SectionTag className="mb-6">Explore</SectionTag>
+            <nav className="flex flex-col gap-4">
+              {links.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="w-fit text-sm font-medium uppercase tracking-[0.14em] text-foreground/70 transition-colors duration-300 hover:text-primary"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.14} className="flex flex-col gap-8 lg:pt-2">
+            <div>
+              <SectionTag className="mb-6">Connect</SectionTag>
+              <p className="copy-two-lines mb-6 text-muted-foreground">
+                Serious founder enquiries.
+                <br />
+                We reply within 48 hours.
+              </p>
+              <a href="#contact" className="editorial-link">
+                Book a call <FiArrowUpRight size={14} />
               </a>
-            ))}
-          </nav>
-        </div>
-
-        {/* Social */}
-        <div className="px-8 md:px-16 py-12 flex items-center gap-5">
-          <a
-            href="#"
-            aria-label="Twitter"
-            className="text-muted-foreground hover:text-primary transition-colors"
-          >
-            <FiTwitter size={18} />
-          </a>
-          <a
-            href="#"
-            aria-label="LinkedIn"
-            className="text-muted-foreground hover:text-primary transition-colors"
-          >
-            <FiLinkedin size={18} />
-          </a>
+            </div>
+            <div className="flex items-center gap-3">
+              <a href="#" aria-label="Twitter" className="footer-social">
+                <FiTwitter size={18} />
+              </a>
+              <a href="#" aria-label="LinkedIn" className="footer-social">
+                <FiLinkedin size={18} />
+              </a>
+            </div>
+          </ScrollReveal>
         </div>
       </div>
 
-      <div className="px-8 md:px-16 py-6 flex items-center justify-between gap-4 flex-wrap">
-        <p className="text-[10px] font-semibold tracking-[0.25em] uppercase text-white/20">
-          &copy; {new Date().getFullYear()} Elevatum. All rights reserved.
-        </p>
-        <p className="text-[10px] font-semibold tracking-[0.25em] uppercase text-white/20">
-          Confidential. Founder-First.
-        </p>
+      <div className="footer-bottom">
+        <div
+          className={`${sectionShell()} flex flex-col items-start justify-between gap-4 py-6 sm:flex-row sm:items-center md:py-7`}
+        >
+          <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground/50">
+            &copy; {new Date().getFullYear()} Elevatum. All rights reserved.
+          </p>
+          <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground/50">
+            Confidential · Founder-first
+          </p>
+        </div>
       </div>
     </footer>
   );

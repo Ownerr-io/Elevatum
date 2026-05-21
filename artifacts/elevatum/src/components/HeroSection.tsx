@@ -1,285 +1,113 @@
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, X, Menu } from "lucide-react";
-
-const ease = [0.22, 1, 0.36, 1] as const;
-
-const fadeDown = {
-  hidden: { opacity: 0, y: -20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.1, duration: 0.5, ease },
-  }),
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 32 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.12, duration: 0.6, ease },
-  }),
-};
-
-const stats = [
-  { value: "+200", label: "RAISED BY\nSPRINT FOUNDERS" },
-  { value: "+50", label: "FOUNDER\nSTRATEGY SESSIONS" },
-  { value: "+30", label: "DAYS TO\nINVESTOR MOMENTUM" },
-];
-
-const navLinks = ["About", "Offers", "Results", "Course", "Contact"];
-const headingWords = ["Raise.", "Capital.", "Confidently."];
+import { ArrowUpRight } from "lucide-react";
+import { editorialEase } from "@/lib/motion";
 
 export function HeroSection() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => { document.body.style.overflow = ""; };
-  }, [menuOpen]);
-
   return (
     <section
-      className="relative min-h-screen flex flex-col overflow-x-hidden"
-      style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+      id="hero"
+      className="relative z-20 flex h-[100svh] min-h-[100svh] shrink-0 flex-col overflow-hidden isolate"
     >
-      {/* Video background */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{ zIndex: 0 }}
-      >
-        <source
-          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260517_222138_3e3205be-3364-417b-a64a-bfe087acbec4.mp4"
-          type="video/mp4"
-        />
-      </video>
-
-      {/* Overlay */}
+      {/* 3D video — left column on desktop; shifted down, full scale */}
       <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.65) 100%)",
-          zIndex: 1,
-        }}
+        className="pointer-events-none absolute inset-0 z-0 overflow-hidden lg:inset-x-auto lg:bottom-6 lg:left-0 lg:top-4 lg:flex lg:w-[min(56%,40rem)] lg:items-center lg:justify-center"
+        aria-hidden
+      >
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="h-full w-full min-h-[105%] min-w-full object-cover scale-[1.08] object-[50%_32%] sm:object-[48%_42%] lg:min-h-[118%] lg:scale-[1.2] lg:object-[36%_48%] lg:translate-y-[10%]"
+        >
+          <source
+            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260517_222138_3e3205be-3364-417b-a64a-bfe087acbec4.mp4"
+            type="video/mp4"
+          />
+        </video>
+      </div>
+
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-background/82 via-background/50 to-background/96"
+        aria-hidden
+      />
+      <div
+        className="absolute inset-0 bg-gradient-to-r from-transparent via-background/25 to-background/75 lg:via-background/15 lg:to-background/88"
+        aria-hidden
+      />
+      <div
+        className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_70%_0%,hsl(var(--glow)/0.12),transparent_55%)]"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-[min(62%,28rem)] bg-gradient-to-t from-background from-35% via-background/92 to-transparent lg:h-28 lg:from-background lg:via-background/80"
+        aria-hidden
       />
 
-      {/* Nav */}
-      <nav
-        className="relative flex items-center justify-between px-5 sm:px-8 md:px-12 pt-5 md:pt-6"
-        style={{ zIndex: 10 }}
-      >
-        {/* Logo */}
-        <motion.a
-          href="/"
-          className="flex items-center gap-2"
-          custom={0}
-          variants={fadeDown}
-          initial="hidden"
-          animate="visible"
-          data-testid="link-logo"
-        >
-          <div
-            className="w-8 h-8 rounded-full flex items-center justify-center"
-            style={{ border: "2px solid hsl(42 85% 58%)" }}
-          >
-            <div
-              className="w-2.5 h-2.5 rounded-full"
-              style={{ background: "hsl(42 85% 58%)" }}
-            />
-          </div>
-          <span
-            className="text-sm font-bold tracking-widest uppercase text-white hidden sm:block"
-          >
-            ELEVATUM
-          </span>
-        </motion.a>
+      <div className="relative z-10 flex min-h-0 flex-1 flex-col">
+        <div className="mx-auto mt-auto w-full max-w-[88rem] px-6 pb-10 pt-4 md:px-10 md:pb-14 lg:mt-0 lg:flex lg:h-full lg:min-h-0 lg:flex-1 lg:flex-col lg:px-10 lg:pb-10 lg:pt-8 xl:pb-12 xl:pt-10">
+          <div className="w-full lg:grid lg:min-h-0 lg:flex-1 lg:grid-cols-2 lg:items-center lg:gap-12 lg:px-6">
+            <div className="hidden min-h-0 lg:block" aria-hidden />
 
-        {/* Desktop nav links */}
-        <div className="hidden md:flex items-center gap-10">
-          {navLinks.map((link, i) => (
-            <motion.a
-              key={link}
-              href={`#${link.toLowerCase()}`}
-              className="text-sm font-semibold tracking-widest uppercase text-white/80 hover:text-white transition-colors"
-              custom={i + 1}
-              variants={fadeDown}
-              initial="hidden"
-              animate="visible"
-              data-testid={`link-nav-${link.toLowerCase()}`}
-            >
-              {link}
-            </motion.a>
-          ))}
-        </div>
-
-        {/* Hamburger */}
-        <motion.button
-          onClick={() => setMenuOpen(true)}
-          className="w-9 h-9 rounded-full bg-black flex flex-col items-center justify-center gap-1"
-          custom={5}
-          variants={fadeDown}
-          initial="hidden"
-          animate="visible"
-          data-testid="button-menu-open"
-          aria-label="Open menu"
-        >
-          <span className="w-4 h-0.5 bg-white" />
-          <span className="w-4 h-0.5 bg-white" />
-          <span className="w-4 h-0.5 bg-white" />
-        </motion.button>
-      </nav>
-
-      {/* Stats row — flex-1 pushes bottom content down on all sizes */}
-      <div
-        className="relative flex-1 flex items-center justify-end px-5 sm:px-8 md:px-12 py-6 md:py-0"
-        style={{ zIndex: 10 }}
-      >
-        <div className="flex items-center gap-5 sm:gap-8 md:gap-10">
-          {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              className="text-right"
-              custom={i + 2}
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              data-testid={`stat-${i}`}
-            >
-              <div
-                className="font-semibold text-black leading-none"
-                style={{ fontSize: "clamp(1.25rem, 4vw, 3.5rem)" }}
+            <div className="hero-copy flex w-full min-w-0 max-w-[20rem] flex-col items-start gap-7 text-left sm:max-w-md sm:gap-8 md:gap-9 lg:ml-auto lg:max-w-[34rem] lg:items-end lg:gap-10 lg:text-right xl:max-w-[38rem] xl:gap-11">
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: editorialEase }}
+                className="section-label w-full text-foreground/55"
               >
-                <span
-                  className="font-semibold"
-                  style={{ fontSize: "0.5em", color: "hsl(42 85% 58%)" }}
-                >
-                  +
-                </span>
-                {stat.value.replace("+", "")}
+                Fundraising advisory · Founder-first
+              </motion.p>
+
+              <div className="flex w-full flex-col items-start gap-1.5 overflow-hidden sm:gap-2 lg:items-end lg:gap-2.5">
+                {["Raise capital", "with editorial", "precision."].map((line, i) => (
+                  <div key={line} className="w-full overflow-hidden lg:w-auto">
+                    <motion.h1
+                      initial={{ y: "108%" }}
+                      animate={{ y: 0 }}
+                      transition={{ delay: 0.15 + i * 0.1, duration: 0.85, ease: editorialEase }}
+                      className={
+                        i === 1
+                          ? "display-serif block text-left text-primary/95 not-italic font-normal lg:text-right"
+                          : "display-title block text-left lg:ml-auto lg:text-right"
+                      }
+                      style={i === 1 ? { fontSize: "clamp(2rem, 5vw, 4.5rem)" } : undefined}
+                    >
+                      {line}
+                    </motion.h1>
+                  </div>
+                ))}
               </div>
-              <div className="text-[9px] sm:text-[10px] md:text-sm font-semibold tracking-widest uppercase text-black whitespace-pre-line leading-tight mt-1">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
 
-      {/* Bottom content */}
-      <div
-        className="relative px-5 sm:px-8 md:px-12 pb-4 sm:pb-6 md:pb-12 flex flex-col gap-3 sm:gap-4 md:gap-10"
-        style={{ zIndex: 10 }}
-      >
-        {/* Row A: tagline (left, hidden on mobile) + CTA (right) */}
-        <div className="flex items-center justify-between gap-4">
-          <motion.p
-            className="hidden sm:block text-[10px] font-semibold tracking-[0.2em] uppercase text-white/50 leading-tight whitespace-nowrap"
-            custom={5}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-          >
-            Confidential &nbsp;·&nbsp; Founder-First &nbsp;·&nbsp; Results Driven
-          </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.55, duration: 0.75, ease: editorialEase }}
+                className="w-full max-w-[30ch] text-sm leading-relaxed text-muted-foreground md:max-w-md md:text-base lg:ml-auto lg:max-w-[32ch]"
+              >
+                Institutional positioning and investor systems for founders who refuse
+                spray-and-pray fundraising.
+              </motion.p>
 
-          <motion.a
-            href="#contact"
-            className="flex items-center gap-1 font-semibold whitespace-nowrap tracking-widest uppercase shrink-0 text-xs sm:text-sm ml-auto"
-            style={{ color: "hsl(42 85% 58%)" }}
-            custom={6}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            data-testid="link-cta-book"
-          >
-            Book a Call
-            <ArrowUpRight size={14} />
-          </motion.a>
-        </div>
-
-        {/* Row B: full-width heading */}
-        <div className="text-right">
-          {headingWords.map((word, i) => (
-            <div key={word} className="overflow-hidden">
               <motion.div
-                initial={{ y: "110%" }}
-                animate={{ y: 0 }}
-                transition={{ delay: 0.4 + i * 0.14, duration: 0.7, ease }}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.65, duration: 0.8, ease: editorialEase }}
+                className="w-full lg:flex lg:justify-end"
               >
-                <span
-                  className="block font-semibold uppercase text-white leading-[0.88]"
-                  style={{ fontSize: "clamp(2.25rem, 5.5vw, 5.5rem)" }}
+                <a
+                  href="#contact"
+                  className="editorial-link"
+                  data-testid="link-cta-book"
                 >
-                  {word}
-                </span>
+                  Start a conversation <ArrowUpRight size={14} />
+                </a>
               </motion.div>
             </div>
-          ))}
+          </div>
         </div>
       </div>
 
-      {/* Mobile menu overlay */}
-      {menuOpen && (
-        <div
-          className="fixed inset-0 z-50 bg-white flex flex-col px-5 pt-5 pb-8"
-          style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-        >
-          <div className="flex items-center justify-between">
-            <div
-              className="w-8 h-8 rounded-full flex items-center justify-center"
-              style={{ border: "2px solid hsl(42 85% 58%)" }}
-            >
-              <div
-                className="w-2.5 h-2.5 rounded-full"
-                style={{ background: "hsl(42 85% 58%)" }}
-              />
-            </div>
-            <button
-              onClick={() => setMenuOpen(false)}
-              className="w-9 h-9 rounded-full bg-black flex items-center justify-center"
-              data-testid="button-menu-close"
-              aria-label="Close menu"
-            >
-              <X size={16} color="white" />
-            </button>
-          </div>
-
-          <div className="flex flex-col gap-8 mt-16">
-            {navLinks.map((link) => (
-              <a
-                key={link}
-                href={`#${link.toLowerCase()}`}
-                onClick={() => setMenuOpen(false)}
-                className="text-3xl font-semibold tracking-widest uppercase text-black hover:opacity-60 transition-opacity"
-                data-testid={`link-mobile-${link.toLowerCase()}`}
-              >
-                {link}
-              </a>
-            ))}
-          </div>
-
-          <div className="mt-auto">
-            <a
-              href="#contact"
-              onClick={() => setMenuOpen(false)}
-              className="flex items-center gap-2 text-xl font-semibold tracking-widest uppercase"
-              style={{ color: "hsl(42 85% 58%)" }}
-            >
-              Book a Call <ArrowUpRight size={20} />
-            </a>
-          </div>
-        </div>
-      )}
     </section>
   );
 }
